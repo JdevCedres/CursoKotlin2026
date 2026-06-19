@@ -126,4 +126,20 @@ fun main() {
         println("No tienes la edad mínima")
     }
 
+    /**
+     *  PRACTICAS
+     */
+
+    // Ejercicio 1. -- Par Impar
+    esPar(2)
+    esPar(3)
+
+}
+
+fun esPar(numero: Int): Boolean{
+    if (numero % 2 == 0){
+        return true
+    } else {
+        return false
+    }
 }
