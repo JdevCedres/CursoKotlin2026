@@ -1,3 +1,6 @@
+import java.lang.classfile.instruction.StackInstruction
+import kotlin.math.E
+
 fun main() {
 
     // Array: la colección más básica
@@ -83,5 +86,120 @@ fun main() {
     val correosUnicos = correosRegistrados.toSet()
     println(correosUnicos)
 
+    // MAP: pares clave-valor
+
+    /**
+     * Un Map guarda información en pares: una clave (key) asociada a un valor (value). En vez de buscar por posición
+     * (como una List), busca por claves-es como un diccionario real: buscas una palabra(clave) y obtienes su significado
+     * (valor)
+     */
+
+    val edades: Map<String, Int> = mapOf(
+        "Ana" to 25,
+        "Luis" to 30,
+        "Eva" to 22
+    )
+    println(edades["Ana"])  // 25
+    println(edades["Luis"]) // 30
+    println(edades.size)  // 3
+    println(edades.containsKey("Eva"))  // true
+
+    // MAP MUTABLE:
+
+    val inventario: MutableMap<String, Int> = mutableMapOf(
+        "Manzana" to 50,
+        "Peras" to 30
+    )
+    inventario["Uvas"] = 20  // Agregar una nueva clave-valor
+    inventario["Manzana"] = 45  // Modificar el valor de una clave existente
+    inventario.remove("Peras") // Eliminar una clave-valor
+
+    // RECORRER UN MAP CON FOR
+
+    val ages = mapOf("Ana" to 25, "Elena" to 6, "Manuel" to 8)
+    for ((name, age) in ages){
+        println("$name tiene $age años")
+    }
+
+    println("-----------PRACTICAS-------------")
+
+    println("Ejercicio 1.")
+
+    val product: MutableList<String> = mutableListOf("movil", "laptop", "server")
+    product.add("monitor")
+    product.add("impresora")
+    product.remove("movil")
+    println("${product.size} , $product " )
+
+    println("Ejercicio 2.")
+
+    val name: List<String> = listOf("Jose", "Manuel", "Elena", "Adrian", "Aitana")
+    println(buscarEnLista("Manuel", name))
+
+    println("Ejercicio 3.")
+    val number1 = listOf<Int>(1, 2, 3, 3, 4, 5, 6, 6, 7)
+    println(contarUnicos(number1))
+
+    println("Ejercicio 4.")
+    val capitales: Map<String, String> = mapOf(
+        "España" to "Madrid",
+        "Peru" to "Lima",
+    )
+    println(obtenerCapitales("España", capitales))
+    println(obtenerCapitales("Francia", capitales))
+
+    println("Ejercicio 5.")
+    val inventarios = mutableMapOf(
+        "television" to 50,
+        "radios" to 30,
+        "laptop" to 4,
+        "antenas" to 16
+    )
+    venderProducto("television", 3, inventarios)
+
+    println("Ejercicio 6.")
+    val numerosAMano = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8)
+    println(filtraAMano(numerosAMano, 3))
+
+    println("Ejercicio 7.")
+    val telefono: MutableMap<String, Int> = mutableMapOf(
+        "Jose" to 693921827,
+        "Manuel" to 676543219,
+        "Elena" to 654323456
+    )
+}
+
+fun buscarEnLista(elemento: String, lista: List<String>): Boolean{
+    return  lista.contains(elemento)
+}
+
+fun contarUnicos(numeros: List<Int>): Set<Int> {
+    return numeros.toSet()
+}
+fun obtenerCapitales(pais: String, capitales: Map<String, String>): String{
+    return capitales.getOrDefault(pais, "capital no encontrada")
+}
+
+fun venderProducto(producto: String, cantidad: Int, inventarios : MutableMap<String, Int>){
+    val stockActual = inventarios.getOrDefault(producto, 0)
+    if (stockActual < cantidad) {
+        println("No hay suficiente stock de $producto")
+        return  // sales de la función sin hacer la resta
+    } else {
+        inventarios[producto] = stockActual - cantidad
+        println("$producto: quedan ${inventarios[producto]} unidades")
+    }
+}
+fun filtraAMano(lista : MutableList<Int>, limite: Int): MutableList<Int>{
+    val numeros3: MutableList<Int> = mutableListOf()
+    for (n in lista){
+        if (n > limite){
+            numeros3.add(n)
+        }
+
+    }
+    return numeros3
+}
+fun agenda(name: String, telefono: List<Int>){
 
 }
