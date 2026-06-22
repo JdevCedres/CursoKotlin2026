@@ -60,6 +60,44 @@ fun main() {
     // Vas a usar init con bastante frecuencia para "validar" datos de entrada, asegurándote de que un objeto nunca
     // exista en un estado inválido (por ejemplo que una pastilla nunca tenga una dosis negativa)
 
+
+    /**
+     *  HERENCIA: reutilizar y especializar clases
+     */
+
+    // La herencia te permite crear una clase nueva basada en otra existente, heredando sus propiedades y métodos,
+    // y agregando o modificando lo que necesites. La clase original se llama clase padre (o superclase), y la nueva se
+    // llama clase hija (o subclase)
+    // En Kotlin, las clases son "final" por defecto (no se puede heredar)--necesitas marcar explícitamente la clase
+    //padre con la palabra "open" para permitir que otras clases hereden de ella
+
+    val perro = Perro("Rex")
+    val gato = Gato("Michi")
+    perro.hacerSonido()
+    gato.hacerSonido()
+
+
+    /**
+     * DATA CLASS: clases pensadas para guardar datos
+     */
+
+    // Cuando una clase existe principalmente para guardar información (sin mucha lógica compleja), Kotlin te ofrece un
+    // atajo muy poderoso: data class. Vas a usarla constantemente en Android (por ejemplo, para representar cada pastilla
+    // de tu app)
+
+    // data class Pastilla (val nombre: String, val dosis: String, val hora: String)
+    // Una "DATA CLASS" te da automáticamente, sin escribir nada extra:
+    /**
+     * Una representación en texto legible al imprimir el objeto
+     * Comparación por contenido con == (en una clase normal, == compararía si son el mismo objeto en memoria no si tiene
+     * los mismos datos)
+     * Una función "copy()"para crear una copia modificando solo algunos campos.
+     */
+
+    val pastilla1 = Pastilla("Paracetamol","500mg", "08:00")
+    val pastilla2 = Pastilla("Paracetamol","500mg", "08:00")
+    println(pastilla1) // Pastilla(nombre=Paracetamol, dosis=500mg, hora="08:00")
+    println(pastilla1 == pastilla2) // true: compara el CONTENIDO, no si son el mismo objeto.
 }
 
 // Ejemplo Clase
@@ -92,4 +130,29 @@ class Persona(val nombre: String, var edad: Int){
         println("$nombre ahora tiene $edad años")
     }
 }
+// EJEMPLO HERENCIA
 
+// Clase Padre o Superclase
+open class Animal(val nombre: String){
+    open fun hacerSonido(){
+        println("$nombre hace un sonido")
+    }
+}
+// Clase hija o subclase
+class Perro(nombre: String): Animal(nombre) {
+    override fun hacerSonido() {
+        println("$nombre dice: Guau!")
+    }
+}
+class Gato(nombre: String): Animal(nombre){
+    override fun hacerSonido() {
+        println("$nombre dice: Miau!")
+    }
+}
+
+// Rex dice: Guau!
+// Michi dice: Miau!
+
+// Ejemplo data class
+
+data class Pastilla (val nombre: String, val dosis: String, val hora: String)
