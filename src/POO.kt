@@ -101,6 +101,10 @@ fun main() {
     println(pastilla1) // Pastilla(nombre=Paracetamol, dosis=500mg, hora="08:00")
     println(pastilla1 == pastilla2) // true: compara el CONTENIDO, no si son el mismo objeto.
 
+
+
+
+
     /**
      *  Prácticas
      */
@@ -158,7 +162,17 @@ fun main() {
         }
     }
     println(mejor)
+
+    // Ejercicio 8
+    // Agregas las figuras a la lista (puedes usar las mismas que ya creaste en el Ejercicio 5)
+    addFigure(figurasEjer8, Circulo(4.53))
+   addFigure(figurasEjer8, Rectangulo(6.70, 4.76))
+
+    // Imprimes la suma de todas las áreas
+    println("Área total: ${totalArea(figurasEjer8)}")
 }
+
+
 
 // Ejemplo Clase
 /*
@@ -293,3 +307,19 @@ class Rectangulo(val base: Double, val altura: Double):Figura(){
 // Ejercicio 6--data class básicas
 
 data class Estudiante(val nombre: String, val nota: Double)
+
+// Ejercicio 8--Sistema de figuras con Mutable List
+
+val figurasEjer8: MutableList<Figura> = mutableListOf()
+
+fun addFigure(figurasEjer8: MutableList<Figura>, figura: Figura){
+    figurasEjer8.add(figura)
+}
+
+fun totalArea(figurasEjer8: MutableList<Figura>): Double {
+    var total = 0.0
+    for (figura in figurasEjer8){
+        total += figura.area()
+    }
+    return total
+}
