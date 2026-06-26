@@ -103,4 +103,76 @@ fun main() {
      * Evita !! casi siempre. Solo úsalo cuando estés 100% seguro(por ejemplo, justo después de validar con if) y no
      * encuentres una alternativa más segura.
      */
+
+    // Practicas
+
+    // Ejercicio 1 -- Tu primer tipo anulable
+
+    var provincia: String? = null
+    println(provincia?.length)
+    provincia = "Las palmas"
+    println(provincia.length)
+
+    // Ejercicio 2 -- Elvis en acción
+
+    println(obtenerNombreUsuario("Manuel"))  // Manuel  (texto no es null, lo devuelve tal cual)
+    println(obtenerNombreUsuario(null))      // inválido  (texto es null, usa el valor de respaldo)
+
+    // Ejercicio 3 -- Combinando ?. y ?:
+    println(longitudSegura("josedamaso"))
+    println(longitudSegura(null))
+
+    // Ejercicio 4 -- Validar con If
+    describirEdad(9)
+    describirEdad(null)
+
+    // Ejercicio 5 -- let para ejecutar bloques
+    crearCorreos("manuel@chacho.com")
+    crearCorreos(null)
+
+    // Ejercicio 6 -- Lista de productos con precios anulables
+
+    val producto1 = Product("Gomas", null)
+    val producto2 = Product("cable", 4.25)
+    val producto3 = Product("alicates", null)
+    val producto4 = Product("navaja", 12.25)
+
+
+
 }
+
+fun obtenerNombreUsuario(texto: String?): String{
+    return texto ?: "inválido"
+}
+
+// Ejercicio 3 -- Combinando ?. y ?:
+
+fun longitudSegura(texto: String?): Int {
+   val longitud: Int = texto?.length ?: 0
+    return longitud
+}
+// Ejercicio 4 -- Validar con If
+
+fun describirEdad(edad: Int?){
+    if (edad != null){
+        println("Tienes $edad años")
+    }else {
+        println("Edad desconocida o null")
+    }
+}
+
+// Ejercicio 5 -- let para ejecutar bloques
+
+fun crearCorreos(correo: String?){
+    correo.let {
+        println("${correo?.uppercase()}")
+    }
+}
+
+
+
+
+// Ejercicio 6 -- Lista de productos con precios anulables
+
+data class Product(var nombre: String, var precio: Double?)
+
