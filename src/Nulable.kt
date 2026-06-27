@@ -137,6 +137,25 @@ fun main() {
     val producto3 = Product("alicates", null)
     val producto4 = Product("navaja", 12.25)
 
+    val products: List<Product> = listOf(producto1, producto2, producto3, producto4)
+    for (product in products){
+        if (product.precio != null){
+            println("el Precio del producto: ${product.nombre} es ${product.precio} €")
+        } else {
+            println("Precio no disponible")
+        }
+    }
+
+    // Ejercicio 7 -- Buscar en un Map con resultado anulable
+
+    val productos: Map<String, Int> = mapOf(
+        "ferrari" to 10,
+        "porche" to 9,
+        "corsa" to 12
+    )
+    println(consultarStock("ferrari", productos))
+    println(consultarStock("bicicleta", productos))
+
 
 
 }
@@ -176,3 +195,9 @@ fun crearCorreos(correo: String?){
 
 data class Product(var nombre: String, var precio: Double?)
 
+// Ejercicio 7 -- Buscar en un Map con resultado anulable
+
+fun consultarStock(producto: String, inventario: Map<String, Int>):String {
+    val stock = inventario[producto] ?: return "Producto no registrado"
+    return "$producto quedan $stock"
+}
