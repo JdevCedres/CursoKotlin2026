@@ -36,5 +36,24 @@ fun main() {
 
     /**
      * FUNCIONES DE ORDEN SUPERIOR: funciones que reciben (o devuelven) otras funciones
+     * Es simplemente una función qu recibe otra función como parámetros, o que devuelva una función como resultado.
+     * Esto es posible porque, en kotlin, las funciones son "ciudadanos de primera clase"--se puede tratar como cualquier
+     * otro dato(igual que pasas Int o un String)
      */
+    fun operar(a: Int, b: Int, operacion:(Int, Int) -> Int): Int {
+        return operacion(a, b)
+    }
+    val suma = {x: Int, y: Int -> x + y}
+    val resta = {x: Int, y: Int -> x - y}
+
+    println(operar(10, 4, suma))
+    println(operar(10, 4, resta))
+
+    /**
+     * Fíjate en el tipo de parámetro "operacion: (Int, Int) -> Int". Esto significa:"recibo algo que es una función, que
+     * toma dos Int y devuelve un Int". Es exactamente el mismo "molde" que tiene tus lambdas "suma" y "resta", por eso encajan
+     * perfecto cuando las pasas por defecto
+     */
+
+
 }
