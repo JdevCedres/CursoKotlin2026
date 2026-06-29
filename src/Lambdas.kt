@@ -55,5 +55,113 @@ fun main() {
      * perfecto cuando las pasas por defecto
      */
 
+    /**
+     * Lambdas que ya usamos sin saberlo: funciones de colección
+     *
+     * En el tema 5 calculamos sumas y máximos con un for. Muchas funciones de List en realidad son funciones de orden
+     * superior, que reciben una lambda para decirles "qué hacer con cada elemento".
+     */
 
+    val numeros = listOf(1, 2, 3, 4, 5, 6)
+
+    // filter: se queda solo con los elementos que cumplen la condición
+
+    val pares = numeros.filter { n -> n % 2 == 0 }
+    println(pares) // [2, 4, 6]
+
+    // map: transforma cada elemento en otra cosa
+    val alCuadrado = numeros.map { n -> n * n }
+    println(alCuadrado) // [1, 4, 9, 16, 25, 36]
+
+    // forEach: ejecuta una acción por cada elemento (como un for, pero como lambda)
+
+    numeros.forEach { n -> println("Número: $n") }
+
+    /**
+     * Recuerda el Ejercicio 6 del Tema 4 (numerosMayores), donde filtrabas una lista a mano con un for y un if.
+     * Eso es exactamente lo que hace .filter {} en una sola línea
+     */
+
+    // La versión manual del Tema 4
+
+    fun numerosMayoresA(numeros: List<Int>, limite: Int): List<Int>{
+        val resultado = mutableListOf<Int>()
+        for (n in numeros){
+            if (n > limite){
+                resultado.add(n)
+            }
+        }
+        return resultado
+    }
+
+    // Con filter, el mismo resultado:
+
+    fun numerosMayoresB(numero: List<Int>, limite: Int): List<Int>{
+        return numeros.filter { n -> n > limite }
+    }
+
+    /**
+     * It: el parámetro implícito
+     *
+     * Cuando una lambda recibe un solo parámetro, kotlin te deja omitir su nombre y la flecha por completo--puedes
+     * referirte a ese parámetro co la palabra especial it.
+     */
+
+    val numbers = listOf(1, 2, 3, 4, 5, 6)
+
+    // Forma explícita (con nombre de parámetro)
+    val peers = numbers.filter { n -> n % 2 == 0 }
+
+    // Forma con it (más corta muy común en Kotlin)
+    val peers2 = numbers.filter { it % 2 == 0 }
+
+    println(peers)
+    println(peers2)
+
+    /**
+     * Sintaxis al final: lambda como último parámetro
+     *
+     * Cuando el último (o único) parámetro de una función es una lambda, Kotlin te permite escribirla fuera de los
+     * paréntesis--esto es lo que ya viste con filter {}, sin paréntisis vacíos delante.
+     */
+
+    val numeros2 = listOf(1, 2, 3, 4, 5, 6)
+
+    // Forma completa (con paréntesis)
+    val pares3 = numeros2.filter { it % 2 == 0 }
+
+    // Forma idiomática de Kotlin (paréntesis omitidos cuando la lambda es el único argumento)
+    val pares4 = numeros2.filter { it % 2 == 0 }
+
+    // Por eso, en tu función personalizada operar(10, 4, suma) de antes, también podrías escribirla así si la lambda
+    // fuera directamente al llamarla:
+    println(operar(10, 4) {x, y -> x + y})
+    // La lambda {x, y -> x + y} queda fuera de los paréntesis, porque es el último parámetro
+
+
+    /**
+     *  Prácticas
+     */
+
+    // Ejercicio 1:
+
+    val multiplicar = {x: Int, y: Int -> x * y}
+    println("Ejercicio 1")
+    println(multiplicar(2, 4))
+    println(multiplicar(2, 5))
+    println( multiplicar(8, 5))
+
+    // Ejercicio 2:
+    println("Ejercicio 2")
+    fun aplicarOperacion(a: Int, b: Int, ejecutar:(Int, Int) -> Int): Int{
+        return ejecutar(a, b)
+    }
+    val sumas = {x: Int, y: Int -> x + y}
+    val restas = {x: Int, y: Int -> x - y}
+    val multiplicacion = {x: Int, y: Int -> x * y}
+    println(aplicarOperacion(19, 20, sumas))          // 39
+    println(aplicarOperacion(19, 20, restas))         // -1
+    println(aplicarOperacion(19, 20, multiplicacion)) // 380
 }
+
+
