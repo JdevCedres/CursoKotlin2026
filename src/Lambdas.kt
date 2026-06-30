@@ -1,3 +1,5 @@
+import kotlin.collections.filter
+
 fun main() {
     /**
      * Una lambda es, literalmente, una función sin nombre que puedes guardar en una variable, pasar como argumento a
@@ -162,6 +164,56 @@ fun main() {
     println(aplicarOperacion(19, 20, sumas))          // 39
     println(aplicarOperacion(19, 20, restas))         // -1
     println(aplicarOperacion(19, 20, multiplicacion)) // 380
+
+    // Ejercicio 3
+
+    val palabras = mutableListOf("coche","moto","bicicleta", "autobus", "patin", "monopatin")
+    val palabraMayor = palabras.filter { it.length > 5 }
+    println(palabraMayor)
+
+    // Ejercicio 4
+    val nombres = listOf("Jose", "manuel", "elena", "adrian", "aitana")
+    val nombreMayusculas = nombres.map { it.uppercase() }
+    println(nombreMayusculas)
+
+    // Ejercicio 5
+    val listaTareas = listOf("Ducharse", "desayunar", "Vestirse", "Trabajar", "comer", "descansoooo")
+  listaTareas.forEachIndexed { indice, tarea ->
+      println("${indice + 1}. $tarea")
+  }
+
+    // Ejercicio 6
+    val num = listOf(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+    val numPar = num.filter { it % 2 == 0 }
+    val numElv = numPar.map { it * it }
+    println(numPar)
+    println(numElv)
+
+    // Ejercicio 7
+    data class Pastilla (val nombre: String, val dosis: String, val hora: String)
+    val pastillero = listOf(
+        Pastilla("Ibuprofeno", "33", "15:00"),
+        Pastilla("Paracetamol", "450", "08:00"),
+        Pastilla("Tramdol", "600", "10:00"),
+        Pastilla("Aspirina", "800", "08:00")
+    )
+
+    val pastisTemprano = pastillero.filter { it.hora == "08:00" }
+    println(pastisTemprano)
+
+    // Ejercicio 8
+    val noVacio = {t: String -> t.isNotEmpty()}
+    val minimoOcho = {t: String -> t.length >= 8}
+    val terminenE = {t: String -> t.endsWith("e")}
+    println(validar("josecedres", noVacio))
+    println(validar("jose", minimoOcho))
+    println(validar("mama", terminenE))
+    println(validar("pepe", terminenE))
+
+
+}
+fun validar(texto: String, regla:(String)-> Boolean):String {
+    return if (regla(texto)) "valido" else "invalido"
 }
 
 
